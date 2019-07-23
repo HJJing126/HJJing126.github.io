@@ -95,17 +95,17 @@
   };
 </script>
 
-  <meta name="description" content="title：the first blogSpring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(Serv">
+  <meta name="description" content="Spring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(ServletContext servletCon">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Huangjingjingblog">
+<meta property="og:title" content="the first blog">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Spring 部分配置特性/index.html">
 <meta property="og:site_name" content="Huangjingjingblog">
-<meta property="og:description" content="title：the first blogSpring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(Serv">
+<meta property="og:description" content="Spring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(ServletContext servletCon">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-23T02:09:16.662Z">
+<meta property="og:updated_time" content="2019-07-23T02:11:06.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Huangjingjingblog">
-<meta name="twitter:description" content="title：the first blogSpring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(Serv">
+<meta name="twitter:title" content="the first blog">
+<meta name="twitter:description" content="Spring 部分配置特性id 和nam12345678910111213141516171819202122public class NoBeanOverridingContextLoader extends ContextLoader &amp;#123;    @Override    protected void customizeContext(ServletContext servletCon">
 
 
 
@@ -124,7 +124,7 @@
 </script>
 
   
-  <title> | Huangjingjingblog</title>
+  <title>the first blog | Huangjingjingblog</title>
   
 
 
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">the first blog
 
               
             
@@ -330,10 +330,14 @@
                 
               
 
-              <time title="创建时间：2019-07-23 10:09:16" itemprop="dateCreated datePublished" datetime="2019-07-23T10:09:16+08:00">2019-07-23</time>
+              <time title="创建时间：2019-07-23 10:09:16 / 修改时间：10:11:06" itemprop="dateCreated datePublished" datetime="2019-07-23T10:09:16+08:00">2019-07-23</time>
             </span>
           
 
+          
+            
+
+            
           
 
           
@@ -370,8 +374,7 @@
       
 
       
-        <hr>
-<h2 id="title：the-first-blog"><a href="#title：the-first-blog" class="headerlink" title="title：the first blog"></a>title：the first blog</h2><h1 id="Spring-部分配置特性"><a href="#Spring-部分配置特性" class="headerlink" title="Spring 部分配置特性"></a>Spring 部分配置特性</h1><h2 id="id-和nam"><a href="#id-和nam" class="headerlink" title="id 和nam"></a>id 和nam</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoBeanOverridingContextLoader</span> <span class="keyword">extends</span> <span class="title">ContextLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">customizeContext</span><span class="params">(ServletContext servletContext, ConfigurableWebApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.customizeContext(servletContext, applicationContext);</span><br><span class="line">	    AbstractRefreshableApplicationContext arac = (AbstractRefreshableApplicationContext) applicationContext;</span><br><span class="line">	    arac.setAllowBeanDefinitionOverriding(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyContextLoaderListener</span> <span class="keyword">extends</span> <span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ContextLoader <span class="title">createContextLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> NoBeanOverridingContextLoader();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">javadoop</span>.<span class="title">MyContextLoaderListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;  </span></span><br><span class="line"><span class="class">&lt;/<span class="title">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="Spring-部分配置特性"><a href="#Spring-部分配置特性" class="headerlink" title="Spring 部分配置特性"></a>Spring 部分配置特性</h1><h2 id="id-和nam"><a href="#id-和nam" class="headerlink" title="id 和nam"></a>id 和nam</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoBeanOverridingContextLoader</span> <span class="keyword">extends</span> <span class="title">ContextLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">customizeContext</span><span class="params">(ServletContext servletContext, ConfigurableWebApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.customizeContext(servletContext, applicationContext);</span><br><span class="line">	    AbstractRefreshableApplicationContext arac = (AbstractRefreshableApplicationContext) applicationContext;</span><br><span class="line">	    arac.setAllowBeanDefinitionOverriding(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyContextLoaderListener</span> <span class="keyword">extends</span> <span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ContextLoader <span class="title">createContextLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> NoBeanOverridingContextLoader();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">javadoop</span>.<span class="title">MyContextLoaderListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;  </span></span><br><span class="line"><span class="class">&lt;/<span class="title">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -524,7 +527,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title：the-first-blog"><span class="nav-number">1.</span> <span class="nav-text">title：the first blog</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-部分配置特性"><span class="nav-number"></span> <span class="nav-text">Spring 部分配置特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#id-和nam"><span class="nav-number">1.</span> <span class="nav-text">id 和nam</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-部分配置特性"><span class="nav-number">1.</span> <span class="nav-text">Spring 部分配置特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#id-和nam"><span class="nav-number">1.1.</span> <span class="nav-text">id 和nam</span></a></li></ol></li></ol></div>
             
 
           </div>
