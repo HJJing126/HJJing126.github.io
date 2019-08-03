@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Deep Learning for Entity Matching A Design Space Exploration | Huangjingjingblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Deep Learning for Entity Matching: A Design Space ExplorationEM Typically, EM is done in two phases:   blocking ：The goal of blocking is to filter the cross product D × D′ to a candidate set C that on">
+<meta name="keywords" content="Entity Matching">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning for Entity Matching A Design Space Exploration">
+<meta property="og:url" content="http://yoursite.com/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/index.html">
+<meta property="og:site_name" content="Huangjingjingblog">
+<meta property="og:description" content="Deep Learning for Entity Matching: A Design Space ExplorationEM Typically, EM is done in two phases:   blocking ：The goal of blocking is to filter the cross product D × D′ to a candidate set C that on">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564721287843.png">
+<meta property="og:image" content="c:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564728894906.png">
+<meta property="og:image" content="c:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564760870905.png">
+<meta property="og:updated_time" content="2019-08-03T08:22:58.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning for Entity Matching A Design Space Exploration">
+<meta name="twitter:description" content="Deep Learning for Entity Matching: A Design Space ExplorationEM Typically, EM is done in two phases:   blocking ：The goal of blocking is to filter the cross product D × D′ to a candidate set C that on">
+<meta name="twitter:image" content="c:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564721287843.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Huangjingjingblog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Huangjingjingblog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">welcome</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Deep Learning for Entity Matching A Design Space Exploration" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" class="article-date">
+  <time datetime="2019-08-03T07:49:52.398Z" itemprop="datePublished">2019-08-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Deep Learning for Entity Matching A Design Space Exploration
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Deep-Learning-for-Entity-Matching-A-Design-Space-Exploration"><a href="#Deep-Learning-for-Entity-Matching-A-Design-Space-Exploration" class="headerlink" title="Deep Learning for Entity Matching: A Design Space Exploration"></a>Deep Learning for Entity Matching: A Design Space Exploration</h1><p><strong>EM</strong></p>
+<p>Typically, EM is done in two phases: </p>
+<ul>
+<li><p>blocking ：The goal of blocking is to filter the cross product D × D′ to a candidate set C that only includes pairs of entity mentions judged likely to be matches.</p>
+<ul>
+<li>相当于每两个entity都进行比较。</li>
+</ul>
+</li>
+<li><p>matching： Given the labeled data T our goal is to design a matcher M that can accurately distinguish between “match” and “no-match” pairs (e1, e2) in C.</p>
+<ul>
+<li>判断pairs是否match</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="3-1-Architecture-Template-amp-Design-Space"><a href="#3-1-Architecture-Template-amp-Design-Space" class="headerlink" title="3.1 Architecture Template &amp; Design Space"></a>3.1 Architecture Template &amp; Design Space</h3><p>3.1 Architecture Template &amp; Design Space</p>
+<p><strong>输入input：</strong>一对实体(e1,e2)，有相同的属性结构，属性值是a sequence of words we.j ，sequence的长度可以不同</p>
+<p>每一个输入的点是n维向量，n为属性个数，第j维的值来自于两个点j维的值</p>
+<p><img src="C:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564721287843.png" alt="1564721287843"></p>
+<p>​       </p>
+<ul>
+<li><p><strong>The Attribute Embedding Module：</strong>For all attributes Aj ∈ A1 · · ·AN , this module takes sequences of words we1, j and we2, j and converts them to two sequences of word embedding vectors ue1, j and ue2, j whose elements correspond to d-dimensional embeddings of the corresponding words</p>
+<ul>
+<li><p>把属性转换为序列向量，转换为嵌入向量，1个元素为d维，一个属性有m个元素，就是d*m</p>
+</li>
+<li><p>矩阵相乘，前面的列数==后面的行数</p>
+<p><img src="C:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564728894906.png" alt="1564728894906"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>输出output：</strong>a pair of embeddings ue1, j and ue2, j<br>for the values of attribute Aj for entity mentions e1 and e2. We<br>denote the final output of this module as {(ue1, j , ue2, j )}N<br>j=1.</p>
+<p>一对embeddings u</p>
+<p><strong>属性相似度表示模型</strong></p>
+<p>根据输入的u，判断e1和e2的相似度</p>
+<ol>
+<li><p>属性摘要</p>
+<p>把d*m和k维的进行软对齐，输出h维</p>
+</li>
+<li><p>属性比较</p>
+<p>输入：h维</p>
+<p>输出：相似度sj  l维</p>
+<p>The output of the similarity representation module is a collection of similarity representation vectors {s1, . . . , sN }, one for each attribute A1, . . . ,AN</p>
+</li>
+</ol>
+<p><strong>The Classifier Module分类模块</strong></p>
+<p>输入：s维</p>
+<p>作为特征</p>
+<p><img src="C:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564760870905.png" alt="1564760870905"></p>
+<p><strong>属性嵌入</strong></p>
+<p>word-level or character-level</p>
+<p>pre-trained or learned</p>
+<p><strong>属性摘要</strong></p>
+<ol>
+<li>聚合函数：</li>
+</ol>
+<p>平均 or 加权平均，不用学，依赖embedding向量</p>
+<p>h=d</p>
+<ol start="2">
+<li>Sequence-aware Summarization序列感知的</li>
+</ol>
+<p>用rnn，可考虑单词的顺序和语义</p>
+<p>LSTM</p>
+<p>缺点：长序列没有很好的表示</p>
+<p><strong>Sequence Alignment属性对齐</strong></p>
+<p>没有考虑到position</p>
+<p><strong>Hybrid:混合</strong></p>
+<p>时间多，但效果好</p>
+<h3 id="Attribute-Comparison-Choices"><a href="#Attribute-Comparison-Choices" class="headerlink" title="Attribute Comparison Choices"></a>Attribute Comparison Choices</h3><p>距离计算</p>
+<p>固定的：cosine    欧式距离</p>
+<p>学习的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" data-id="cjyv9th3q0004k0lbnrd2orjk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/03/word embedding/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          word embedding
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/23/Spring 部分配置特性/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">diyige</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/diyige/">diyige</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Entity-Matching/" style="font-size: 10px;">Entity Matching</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/word-embedding/" style="font-size: 10px;">word embedding</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/03/word embedding/">word embedding</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/">Deep Learning for Entity Matching A Design Space Exploration</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/23/Spring 部分配置特性/">diyige</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 HJJing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
