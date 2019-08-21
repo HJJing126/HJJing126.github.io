@@ -5,18 +5,62 @@
   
 
   
-  <title>Huangjingjingblog</title>
+  <title>note of MySQL | Huangjingjingblog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="try a right way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Huangjingjingblog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="关键字1. distinctSELECT返回所有匹配的行。但是如果不想要每个值每次都出现，则可以用distinct只返回唯一的值 2. limit 限制 limit 5; 不多于5行  limit 5,5; 从 第5行开始不多于5行  带一个值的LIMIT总是从第一行开始，给出的数为返回的行数。带两个值的LIMIT可以指定从行号为第一个值的位置开始  是从0行开始计数的   3. order by">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="note of MySQL">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/note of MySQL/index.html">
 <meta property="og:site_name" content="Huangjingjingblog">
-<meta property="og:description" content="try a right way">
+<meta property="og:description" content="关键字1. distinctSELECT返回所有匹配的行。但是如果不想要每个值每次都出现，则可以用distinct只返回唯一的值 2. limit 限制 limit 5; 不多于5行  limit 5,5; 从 第5行开始不多于5行  带一个值的LIMIT总是从第一行开始，给出的数为返回的行数。带两个值的LIMIT可以指定从行号为第一个值的位置开始  是从0行开始计数的   3. order by">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565712091949.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565712997819.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565713045472.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565713251518.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565715177143.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565715862096.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565716203378.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565716251010.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565838715955.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565838736215.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565840186859.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565840581796.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565840664625.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565841297599.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565841456741.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565841958500.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565842221998.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565842366822.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565842734801.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565843405018.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565843462684.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565843499649.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565843542002.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565844081574.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565844122044.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565844156310.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565844927380.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565844962001.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845018878.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845120999.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845176197.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845459041.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845478087.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845533107.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565845716642.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565846803676.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565847033790.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565847346777.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565856341486.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565856449366.png">
+<meta property="og:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565857887624.png">
+<meta property="og:updated_time" content="2019-08-21T04:54:51.226Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Huangjingjingblog">
-<meta name="twitter:description" content="try a right way">
+<meta name="twitter:title" content="note of MySQL">
+<meta name="twitter:description" content="关键字1. distinctSELECT返回所有匹配的行。但是如果不想要每个值每次都出现，则可以用distinct只返回唯一的值 2. limit 限制 limit 5; 不多于5行  limit 5,5; 从 第5行开始不多于5行  带一个值的LIMIT总是从第一行开始，给出的数为返回的行数。带两个值的LIMIT可以指定从行号为第一个值的位置开始  是从0行开始计数的   3. order by">
+<meta name="twitter:image" content="c:%5CUsers%5Chuang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565712091949.png">
   
     <link rel="alternate" href="/atom.xml" title="Huangjingjingblog" type="application/atom+xml">
   
@@ -67,9 +111,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-note of MySQL" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-note of MySQL" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/21/note of MySQL/" class="article-date">
   <time datetime="2019-08-21T01:54:29.110Z" itemprop="datePublished">2019-08-21</time>
@@ -86,8 +128,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/21/note of MySQL/">note of MySQL</a>
+    <h1 class="article-title" itemprop="name">
+      note of MySQL
     </h1>
   
 
@@ -828,235 +870,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-word embedding" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/03/word embedding/" class="article-date">
-  <time datetime="2019-08-03T07:49:52.411Z" itemprop="datePublished">2019-08-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/03/word embedding/">word embedding</a>
-    </h1>
+    <a href="/2019/08/03/word embedding/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">word embedding</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word embedding"></a>word embedding<img src="C:%5CUsers%5C10344%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564734550147.png" alt="1564734550147"></h1><blockquote>
-<p><a href="https://www.bilibili.com/video/av56959021?from=search&amp;seid=17230449452027579455" target="_blank" rel="noopener">https://www.bilibili.com/video/av56959021?from=search&amp;seid=17230449452027579455</a></p>
-</blockquote>
-<ul>
-<li><p>one-hot</p>
-</li>
-<li><p>bag of words  </p>
-<ul>
-<li>&lt;word, count&gt; map</li>
-<li>document similarity<ul>
-<li>cosine：夹角</li>
-<li>欧式距离</li>
-<li>dot - product：点乘</li>
-<li>tf-idf: 每个单词对这个文本的重要性且不是对素有文本都重要</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>神经网络</p>
-<ul>
-<li><p>单词相似或相关</p>
-<ul>
-<li><p>词性</p>
-</li>
-<li><p>单词组合的频率高</p>
-<p>[girl, women ,boy,man]-&gt;[gender,age]</p>
-<p>任何东西都可以embedding</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/03/word embedding/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/word embedding/" data-id="cjzksbuvu000d5wlb25k8w4if" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Deep Learning for Entity Matching A Design Space Exploration" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" class="article-date">
-  <time datetime="2019-08-03T07:49:52.398Z" itemprop="datePublished">2019-08-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/">Deep Learning for Entity Matching A Design Space Exploration</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Deep-Learning-for-Entity-Matching-A-Design-Space-Exploration"><a href="#Deep-Learning-for-Entity-Matching-A-Design-Space-Exploration" class="headerlink" title="Deep Learning for Entity Matching: A Design Space Exploration"></a>Deep Learning for Entity Matching: A Design Space Exploration</h1><p><strong>EM</strong></p>
-<p>Typically, EM is done in two phases: </p>
-<ul>
-<li><p>blocking ：The goal of blocking is to filter the cross product D × D′ to a candidate set C that only includes pairs of entity mentions judged likely to be matches.</p>
-<ul>
-<li>相当于每两个entity都进行比较。</li>
-</ul>
-</li>
-<li><p>matching： Given the labeled data T our goal is to design a matcher M that can accurately distinguish between “match” and “no-match” pairs (e1, e2) in C.</p>
-<ul>
-<li>判断pairs是否match</li>
-</ul>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" data-id="cjzksbuv500005wlbchjvdouo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Spring 部分配置特性" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/23/Spring 部分配置特性/" class="article-date">
-  <time datetime="2019-07-23T02:09:16.661Z" itemprop="datePublished">2019-07-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/diyige/">diyige</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/23/Spring 部分配置特性/">diyige</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring-部分配置特性"><a href="#Spring-部分配置特性" class="headerlink" title="Spring 部分配置特性"></a>Spring 部分配置特性</h1><h2 id="id-和nam"><a href="#id-和nam" class="headerlink" title="id 和nam"></a>id 和nam</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoBeanOverridingContextLoader</span> <span class="keyword">extends</span> <span class="title">ContextLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">customizeContext</span><span class="params">(ServletContext servletContext, ConfigurableWebApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.customizeContext(servletContext, applicationContext);</span><br><span class="line">	    AbstractRefreshableApplicationContext arac = (AbstractRefreshableApplicationContext) applicationContext;</span><br><span class="line">	    arac.setAllowBeanDefinitionOverriding(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyContextLoaderListener</span> <span class="keyword">extends</span> <span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ContextLoader <span class="title">createContextLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> NoBeanOverridingContextLoader();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">javadoop</span>.<span class="title">MyContextLoaderListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;  </span></span><br><span class="line"><span class="class">&lt;/<span class="title">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/23/Spring 部分配置特性/" data-id="cjzksbuvf00025wlbxj479zsk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/hello-world/" class="article-date">
-  <time datetime="2019-07-22T15:08:55.927Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/07/22/hello-world/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/hello-world/" data-id="cjzksbuvk00065wlbncbjacxu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
