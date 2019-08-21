@@ -69,6 +69,201 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-MySQL优化索引" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/21/MySQL优化索引/" class="article-date">
+  <time datetime="2019-08-21T08:50:05.614Z" itemprop="datePublished">2019-08-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/MySQL优化索引/">MySQL索引优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>索引</strong>是帮助MySQL高效获取数据的排好序的数据结构</p>
+<h2 id="索引数据结构"><a href="#索引数据结构" class="headerlink" title="索引数据结构"></a>索引数据结构</h2><p><a href="http://www.cs.usfca.edu/~galles/visualization在线看数据结构" target="_blank" rel="noopener">http://www.cs.usfca.edu/~galles/visualization在线看数据结构</a></p>
+<ul>
+<li><p>搜索二叉树</p>
+<ul>
+<li>缺点：数据单边增长的话，二叉树实际上是一个链表，查找次数没有减少</li>
+</ul>
+</li>
+<li><p>红黑树：平衡二叉树</p>
+<ul>
+<li>Hashmap：</li>
+<li>优点：出现单边增长态势后，自旋</li>
+<li>缺点：<ul>
+<li>树的高度无法控制，如果高度太高，那么磁盘IO次数太多</li>
+<li>不支持大数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Hash表</p>
+<ul>
+<li>把索引值做hash运算<ul>
+<li>hash(6)在hash表对应磁盘文件地址指针，直接找到地址，仅以此磁盘IO</li>
+<li>不管数据多大，只要进行一次hash运算，就可以了</li>
+</ul>
+</li>
+<li>缺点：不支持范围查询</li>
+<li>哈希算法：md5，CRC16</li>
+</ul>
+</li>
+<li><p>B-Tree</p>
+<ul>
+<li>改进：加分支</li>
+<li>叶节点有相同深度</li>
+<li>叶节点的指针为空</li>
+<li>节点中的数据索引从左到右递增排列</li>
+<li>MySQL设置节点大小：16K</li>
+<li>缺点：不支持范围查询</li>
+</ul>
+</li>
+<li><p>B+Tree</p>
+<p>（B-Tree变种）</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374910394.png" alt="1566374910394"></p>
+<ul>
+<li><p>非叶子节点不存储data，只存储索引，可以放更多的索引</p>
+</li>
+<li><p>叶子节点不存储指针</p>
+</li>
+<li><p>顺序访问指针，提高区间访问的性能</p>
+</li>
+<li><p>一般把根节点放到内存里，树的高度在2-4</p>
+</li>
+<li><p>叶节点之前有双向指针，方便范围查找</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h2><p><strong>表</strong>级别</p>
+<ol>
+<li><p><strong>Myisam</strong></p>
+<p>frm：数据表定义，frame</p>
+<p>MYD：数据行，data</p>
+<p>MYI：索引数据，index</p>
+<p><strong>非聚集索引：</strong>MyISAM索引文件和数据文件是分离的</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374957930.png" alt="1566374957930"></p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375016055.png" alt="1566375016055"></p>
+</li>
+<li><p><strong>innodb</strong></p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375069875.png" alt="1566375069875"></p>
+<p>frm：数据表定义，frame</p>
+<p>ibd：index和data</p>
+<p><strong>聚集索引：</strong>叶节点包含了完整的数据记录</p>
+<p>必须有主键，并且推荐使用<strong>整型的自增主键</strong>：</p>
+<ul>
+<li><p>如果没有自己建，会自动提供一个</p>
+</li>
+<li><p>自增：如果不自增，新插入的数据会导致已经存满的节点<strong>分裂</strong>效率慢；如果自增，只是多加一个新节点</p>
+<p>​      </p>
+</li>
+</ul>
+</li>
+</ol>
+<p>   有的人用<strong>uuid</strong>做主键：字符串比较慢，且占存储空间多，uuid不一定是递增</p>
+<p>​      mySQL使用！=时无法使用索引，会导致全表扫描</p>
+<p><strong>联合索引：</strong>多个列一起索引，索引最左前缀原理，先按第一个列比较</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375218141.png" alt="1566375218141"></p>
+<p>  Explain详解与索引最佳实践</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/21/MySQL优化索引/" data-id="cjzl0rmyg0000j4lb18h4ouiv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-KeyMiner Discovering Keys for Graphs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/21/KeyMiner Discovering Keys for Graphs/" class="article-date">
+  <time datetime="2019-08-21T04:50:25.098Z" itemprop="datePublished">2019-08-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/paper/">paper</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/KeyMiner Discovering Keys for Graphs/">KeyMiner Discovering Keys for Graphs</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>用名字来作为电影的key是不准确的，因为会出现重名的</p>
+<p>as Figure 1 shows two dierent movies titled `Bad Boys’ <strong>in 1983 (m1) and in 1995 (m4).</strong></p>
+</li>
+<li><p>专业领域的语义会影响key的质量</p>
+<p>比如：电影用name和awards作为key，但是不是所有电影都可以获奖，那么很多电影在awards这一项是空的。</p>
+</li>
+</ol>
+<ul>
+<li><p>需要在图上自动发现key，并且随着data的加入，需要可以重新定义key。</p>
+<p>随着新数据的加入，有些key会过时。</p>
+</li>
+<li><p>定义了3种点</p>
+<ol>
+<li>wildcard _v：2个点类型一样，但是没有匹配id和value</li>
+<li>variable v：2个点类型一样，id和value也一样</li>
+<li>value  v*： 点只有值，2个点的值相同。</li>
+</ol>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/21/KeyMiner Discovering Keys for Graphs/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/21/KeyMiner Discovering Keys for Graphs/" data-id="cjzl0rmz70002j4lbv91b1na8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/key/">key</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-note of MySQL" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/21/note of MySQL/" class="article-date">
@@ -134,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/21/note of MySQL/" data-id="cjzksgti7000dm0lbge7hv2og" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/21/note of MySQL/" data-id="cjzl0rn0f000nj4lbnadkm8uz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -213,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/word embedding/" data-id="cjzksgthj0006m0lb5wkrwrbb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/03/word embedding/" data-id="cjzl0rmzh0007j4lba33hvtet" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
@@ -273,7 +468,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" data-id="cjzksgth60000m0lbk7tpg29x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/" data-id="cjzl0rmzf0006j4lb5dv5ekui" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li></ul>
@@ -316,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/hello-world/" data-id="cjzksgthd0002m0lbb49re2q8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/22/hello-world/" data-id="cjzl0rmzj0008j4lb1qmph9nm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,7 +531,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper/">paper</a></li></ul>
     </div>
   </div>
 
@@ -346,7 +541,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
     </div>
   </div>
 
@@ -356,7 +551,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Entity-Matching/" style="font-size: 10px;">Entity Matching</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/word-embedding/" style="font-size: 10px;">word embedding</a>
+      <a href="/tags/Entity-Matching/" style="font-size: 10px;">Entity Matching</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/key/" style="font-size: 10px;">key</a> <a href="/tags/word-embedding/" style="font-size: 10px;">word embedding</a>
     </div>
   </div>
 
@@ -378,6 +573,14 @@
       <ul>
         
           <li>
+            <a href="/2019/08/21/MySQL优化索引/">MySQL索引优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/21/KeyMiner Discovering Keys for Graphs/">KeyMiner Discovering Keys for Graphs</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/21/note of MySQL/">note of MySQL</a>
           </li>
         
@@ -387,10 +590,6 @@
         
           <li>
             <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/">Deep Learning for Entity Matching A Design Space Exploration</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/22/hello-world/">Hello World</a>
           </li>
         
       </ul>

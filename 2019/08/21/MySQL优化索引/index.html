@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL索引优化 | Huangjingjingblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="索引是帮助MySQL高效获取数据的排好序的数据结构 索引数据结构http://www.cs.usfca.edu/~galles/visualization在线看数据结构  搜索二叉树  缺点：数据单边增长的话，二叉树实际上是一个链表，查找次数没有减少   红黑树：平衡二叉树  Hashmap： 优点：出现单边增长态势后，自旋 缺点： 树的高度无法控制，如果高度太高，那么磁盘IO次数太多 不支持大数">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL索引优化">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/MySQL优化索引/index.html">
+<meta property="og:site_name" content="Huangjingjingblog">
+<meta property="og:description" content="索引是帮助MySQL高效获取数据的排好序的数据结构 索引数据结构http://www.cs.usfca.edu/~galles/visualization在线看数据结构  搜索二叉树  缺点：数据单边增长的话，二叉树实际上是一个链表，查找次数没有减少   红黑树：平衡二叉树  Hashmap： 优点：出现单边增长态势后，自旋 缺点： 树的高度无法控制，如果高度太高，那么磁盘IO次数太多 不支持大数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374910394.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374957930.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375016055.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375069875.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375218141.png">
+<meta property="og:updated_time" content="2019-08-21T08:14:55.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL索引优化">
+<meta name="twitter:description" content="索引是帮助MySQL高效获取数据的排好序的数据结构 索引数据结构http://www.cs.usfca.edu/~galles/visualization在线看数据结构  搜索二叉树  缺点：数据单边增长的话，二叉树实际上是一个链表，查找次数没有减少   红黑树：平衡二叉树  Hashmap： 优点：出现单边增长态势后，自旋 缺点： 树的高度无法控制，如果高度太高，那么磁盘IO次数太多 不支持大数">
+<meta name="twitter:image" content="http://yoursite.com/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374910394.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Huangjingjingblog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Huangjingjingblog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">welcome</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL优化索引" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/21/MySQL优化索引/" class="article-date">
+  <time datetime="2019-08-21T08:50:05.614Z" itemprop="datePublished">2019-08-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL索引优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>索引</strong>是帮助MySQL高效获取数据的排好序的数据结构</p>
+<h2 id="索引数据结构"><a href="#索引数据结构" class="headerlink" title="索引数据结构"></a>索引数据结构</h2><p><a href="http://www.cs.usfca.edu/~galles/visualization在线看数据结构" target="_blank" rel="noopener">http://www.cs.usfca.edu/~galles/visualization在线看数据结构</a></p>
+<ul>
+<li><p>搜索二叉树</p>
+<ul>
+<li>缺点：数据单边增长的话，二叉树实际上是一个链表，查找次数没有减少</li>
+</ul>
+</li>
+<li><p>红黑树：平衡二叉树</p>
+<ul>
+<li>Hashmap：</li>
+<li>优点：出现单边增长态势后，自旋</li>
+<li>缺点：<ul>
+<li>树的高度无法控制，如果高度太高，那么磁盘IO次数太多</li>
+<li>不支持大数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Hash表</p>
+<ul>
+<li>把索引值做hash运算<ul>
+<li>hash(6)在hash表对应磁盘文件地址指针，直接找到地址，仅以此磁盘IO</li>
+<li>不管数据多大，只要进行一次hash运算，就可以了</li>
+</ul>
+</li>
+<li>缺点：不支持范围查询</li>
+<li>哈希算法：md5，CRC16</li>
+</ul>
+</li>
+<li><p>B-Tree</p>
+<ul>
+<li>改进：加分支</li>
+<li>叶节点有相同深度</li>
+<li>叶节点的指针为空</li>
+<li>节点中的数据索引从左到右递增排列</li>
+<li>MySQL设置节点大小：16K</li>
+<li>缺点：不支持范围查询</li>
+</ul>
+</li>
+<li><p>B+Tree</p>
+<p>（B-Tree变种）</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374910394.png" alt="1566374910394"></p>
+<ul>
+<li><p>非叶子节点不存储data，只存储索引，可以放更多的索引</p>
+</li>
+<li><p>叶子节点不存储指针</p>
+</li>
+<li><p>顺序访问指针，提高区间访问的性能</p>
+</li>
+<li><p>一般把根节点放到内存里，树的高度在2-4</p>
+</li>
+<li><p>叶节点之前有双向指针，方便范围查找</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h2><p><strong>表</strong>级别</p>
+<ol>
+<li><p><strong>Myisam</strong></p>
+<p>frm：数据表定义，frame</p>
+<p>MYD：数据行，data</p>
+<p>MYI：索引数据，index</p>
+<p><strong>非聚集索引：</strong>MyISAM索引文件和数据文件是分离的</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566374957930.png" alt="1566374957930"></p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375016055.png" alt="1566375016055"></p>
+</li>
+<li><p><strong>innodb</strong></p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375069875.png" alt="1566375069875"></p>
+<p>frm：数据表定义，frame</p>
+<p>ibd：index和data</p>
+<p><strong>聚集索引：</strong>叶节点包含了完整的数据记录</p>
+<p>必须有主键，并且推荐使用<strong>整型的自增主键</strong>：</p>
+<ul>
+<li><p>如果没有自己建，会自动提供一个</p>
+</li>
+<li><p>自增：如果不自增，新插入的数据会导致已经存满的节点<strong>分裂</strong>效率慢；如果自增，只是多加一个新节点</p>
+<p>​      </p>
+</li>
+</ul>
+</li>
+</ol>
+<p>   有的人用<strong>uuid</strong>做主键：字符串比较慢，且占存储空间多，uuid不一定是递增</p>
+<p>​      mySQL使用！=时无法使用索引，会导致全表扫描</p>
+<p><strong>联合索引：</strong>多个列一起索引，索引最左前缀原理，先按第一个列比较</p>
+<p><img src="/C:/Users/huang/AppData/Roaming/Typora/typora-user-images/1566375218141.png" alt="1566375218141"></p>
+<p>  Explain详解与索引最佳实践</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/21/MySQL优化索引/" data-id="cjzl0rmyg0000j4lb18h4ouiv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/21/KeyMiner Discovering Keys for Graphs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">KeyMiner Discovering Keys for Graphs</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper/">paper</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Matching/">Entity Matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word-embedding/">word embedding</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Entity-Matching/" style="font-size: 10px;">Entity Matching</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/key/" style="font-size: 10px;">key</a> <a href="/tags/word-embedding/" style="font-size: 10px;">word embedding</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/21/MySQL优化索引/">MySQL索引优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/21/KeyMiner Discovering Keys for Graphs/">KeyMiner Discovering Keys for Graphs</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/21/note of MySQL/">note of MySQL</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/word embedding/">word embedding</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/Deep Learning for Entity Matching A Design Space Exploration/">Deep Learning for Entity Matching A Design Space Exploration</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 HJJing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
